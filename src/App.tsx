@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 import { Note } from "./types";
+import { storage } from "./storage";
 
 import styles from "./App.module.css";
 import { NoteEditor } from "./NoteEditor";

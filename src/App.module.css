@@ -23,7 +23,9 @@
 
 .toolbar {
     display: flex;
-    align-items: center2;
+    align-items: center;
+    border-bottom: 1px solid #0f172a;
+    padding: 1.5em;
 }
 
 .textEditor {
@@ -53,4 +55,9 @@
 
 .toolbarButton:hover {
     background-color: #f1f5f9;
+}
+
+.toolbarButtonActive {
+    composes: toolbarButton;
+    background-color: #e2e8f0;
 }

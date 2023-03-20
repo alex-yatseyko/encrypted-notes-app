@@ -18,7 +18,10 @@ function App() {
   })
 
   const toggleBold = () => {
-    
+    editor?.chain().focus().toggleBold().run()
+  }
+  const toggleItalic = () => {
+    editor?.chain().focus().toggleItalic().run()
   }
 
   return (
@@ -26,10 +29,14 @@ function App() {
     
       <div className={styles.sidebar}>Sidebar</div>
       <div className={styles.editorContainer}>
-        <div className={styles.toolbar}>Toolbar</div>
-        <button className={styles.toolbarButton} onClick={toggleBold}>
+        <div className={styles.toolbar}>
+        <button className={editor?.isActive("bold") ? styles.toolabrButtonActive : styles.toolbarButton} onClick={toggleBold}>
           Bold
         </button>
+        <button className={editor?.isActive("italic") ? styles.toolabrButtonActive : styles.toolbarButton} onClick={toggleItalic}>
+          Italic
+        </button>
+        </div>
         <EditorContent editor={editor} className={styles.textEditorContent}/>
       </div>
     </div>

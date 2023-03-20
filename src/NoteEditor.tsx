@@ -1,5 +1,5 @@
 import React from "react";
-import { JSONContent } from "@tiptap/react";
+import { JSONContent, generateText } from "@tiptap/react";
 import { Note } from "./types";
 
 import { useEditor, EditorContent } from "@tiptap/react";
@@ -7,15 +7,17 @@ import StarterKit from "@tiptap/starter-kit";
 
 import styles from "./App.module.css";
 
+const extensions = [StarterKit];
+
 type Props = {
   note: Note;
-  onChange: (content: JSONContent) => void;
+  onChange: (content: JSONContent, title?: string) => void;
 };
 
 export const NoteEditor = ({ note, onChange }: Props) => {
   const editor = useEditor(
     {
-      extensions: [StarterKit],
+      extensions,
       content: note.content,
       editorProps: {
         attributes: {
@@ -23,7 +25,12 @@ export const NoteEditor = ({ note, onChange }: Props) => {
         },
       },
       onUpdate: ({ editor }) => {
-        onChange(editor.getJSON());
+        const editorContent = editor.getJSON();
+        const firstNodeContent = editorContent.content?.[0];
+        onChange(
+          editorContent,
+          firstNodeContent && generateText(firstNodeContent, extensions)
+        );
       },
     },
     [note.id]

@@ -14,13 +14,18 @@ function App() {
 
   const activeNote = activeNoteId ? notes[activeNoteId] : null;
 
-  const handleChangeNoteContent = (noteId: string, content: JSONContent) => {
+  const handleChangeNoteContent = (
+    noteId: string,
+    content: JSONContent,
+    title = "New Note"
+  ) => {
     setNotes((notes) => ({
       ...notes,
       [noteId]: {
         ...notes[noteId],
         updatedAt: new Date(),
         content,
+        title,
       },
     }));
   };
@@ -36,6 +41,7 @@ function App() {
       ...notes,
       [newNote.id]: newNote,
     }));
+    setActiveNoteId(newNote.id);
   };
 
   const handleChangeActiveNote = (id: string) => {
@@ -72,16 +78,10 @@ function App() {
       </div>
       {activeNote ? (
         <NoteEditor
-          onChange={(content) =>
-            handleChangeNoteContent(activeNote.id, content)
+          onChange={(content, title) =>
+            handleChangeNoteContent(activeNote.id, content, title)
           }
           note={activeNote}
-          // note={{
-          //   title: "tes",
-          //   id: "tests",
-          //   updatedAt: new Date(),
-          //   content: "testet",
-          // }}
         />
       ) : (
         <div>Create a new note or select an existing one</div>
